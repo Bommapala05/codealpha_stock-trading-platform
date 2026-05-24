@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>TradeX Dashboard</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+
+        * {
+
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+
+        }
+
+        body {
+
+            background: #081120;
+            color: white;
+            overflow-x: hidden;
+
+        }
+
+        .background-shapes {
+
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+
+        }
+
+        .shape {
+
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+
+        }
+
+        .shape1 {
+
+            width: 300px;
+            height: 300px;
+            background: #2563eb;
+            top: 50px;
+            left: -100px;
+
+        }
+
+        .shape2 {
+
+            width: 250px;
+            height: 250px;
+            background: #22c55e;
+            bottom: 80px;
+            right: -80px;
+
+        }
+
+        .shape3 {
+
+            width: 180px;
+            height: 180px;
+            background: #ec4899;
+            top: 300px;
+            right: 250px;
+
+        }
+
+        .navbar {
+
+            position: sticky;
+            top: 0;
+            z-index: 100;
+
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            padding: 20px 60px;
+
+            background: rgba(255,255,255,0.05);
+
+            backdrop-filter: blur(12px);
+
+            border-bottom:
+                    1px solid rgba(255,255,255,0.08);
+
+        }
+
+        .logo {
+
+            font-size: 34px;
+            font-weight: bold;
+            color: #3b82f6;
+
+        }
+
+        .nav-links a {
+
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            transition: 0.3s;
+            font-size: 16px;
+
+        }
+
+        .nav-links a:hover {
+
+            color: #22c55e;
+
+        }
+
+        #clock {
+
+            color: #22c55e;
+            font-weight: bold;
+
+        }
+
+        .auth-container {
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            position: relative;
+            z-index: 10;
+
+        }
+
+        .auth-card {
+
+            width: 420px;
+
+            padding: 45px;
+
+            border-radius: 25px;
+
+            background: rgba(255,255,255,0.06);
+
+            backdrop-filter: blur(18px);
+
+            border:
+                    1px solid rgba(255,255,255,0.08);
+
+            box-shadow:
+                    0 0 40px rgba(0,0,0,0.5);
+
+        }
+
+        .auth-card h1 {
+
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 42px;
+
+        }
+
+        .auth-card p {
+
+            text-align: center;
+            color: #cbd5e1;
+            margin-bottom: 30px;
+
+        }
+
+        .auth-card p span {
+
+            color: #22c55e;
+            font-weight: bold;
+
+        }
+
+        .social-login {
+
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+
+        }
+
+        .social-login button {
+
+            flex: 1;
+
+            padding: 14px;
+
+            border: none;
+            border-radius: 12px;
+
+            background: rgba(255,255,255,0.08);
+
+            color: white;
+            cursor: pointer;
+
+        }
+
+        .divider {
+
+            text-align: center;
+            margin: 20px 0;
+            color: #94a3b8;
+
+        }
+
+        .auth-card input {
+
+            width: 100%;
+
+            padding: 15px;
+
+            border: none;
+            outline: none;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,0.08);
+
+            color: white;
+
+            margin-bottom: 20px;
+
+        }
+
+        .signin-btn {
+
+            width: 100%;
+
+            padding: 16px;
+
+            border: none;
+
+            border-radius: 14px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #22c55e,
+                            #3b82f6
+                    );
+
+            color: white;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+            transition: 0.3s;
+
+        }
+
+        .signin-btn:hover {
+
+            transform: scale(1.03);
+
+        }
+
+        .dashboard {
+
+            display: none;
+
+            position: relative;
+            z-index: 10;
+
+            padding: 40px;
+
+        }
+
+        .page-section {
+
+            animation: fadeIn 0.4s ease;
+
+        }
+
+        @keyframes fadeIn {
+
+            from {
+
+                opacity: 0;
+                transform: translateY(20px);
+
+            }
+
+            to {
+
+                opacity: 1;
+                transform: translateY(0);
+
+            }
+
+        }
+
+        .hero-section {
+
+            text-align: center;
+            margin-top: 100px;
+
+        }
+
+        .hero-section h1 {
+
+            font-size: 60px;
+            margin-bottom: 20px;
+
+        }
+
+        .hero-section p {
+
+            color: #cbd5e1;
+            font-size: 18px;
+            margin-bottom: 30px;
+
+        }
+
+        .hero-btn {
+
+            padding: 15px 30px;
+
+            border: none;
+
+            border-radius: 30px;
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #22c55e,
+                            #3b82f6
+                    );
+
+            color: white;
+
+            font-size: 17px;
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+        .card {
+
+            background: rgba(255,255,255,0.05);
+
+            border-radius: 22px;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            backdrop-filter: blur(12px);
+
+            border:
+                    1px solid rgba(255,255,255,0.08);
+
+        }
+
+        .search-box {
+
+            width: 100%;
+
+            padding: 15px;
+
+            margin-top: 20px;
+            margin-bottom: 20px;
+
+            border: none;
+            outline: none;
+
+            border-radius: 12px;
+
+            background: rgba(255,255,255,0.08);
+
+            color: white;
+
+        }
+
+        table {
+
+            width: 100%;
+            border-collapse: collapse;
+
+        }
+
+        th, td {
+
+            padding: 15px;
+            text-align: center;
+
+            border-bottom:
+                    1px solid rgba(255,255,255,0.08);
+
+        }
+
+        tr:hover {
+
+            background: rgba(255,255,255,0.03);
+
+        }
+
+        .buy-btn {
+
+            background: #22c55e;
+
+            border: none;
+
+            padding: 10px 15px;
+
+            color: white;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+            margin-right: 5px;
+
+        }
+
+        .sell-btn {
+
+            background: #ef4444;
+
+            border: none;
+
+            padding: 10px 15px;
+
+            color: white;
+
+            border-radius: 10px;
+
+            cursor: pointer;
+
+        }
+
+        .wallet-box {
+
+            background:
+                    linear-gradient(
+                            135deg,
+                            #2563eb,
+                            #1d4ed8
+                    );
+
+            padding: 30px;
+
+            border-radius: 20px;
+
+            text-align: center;
+
+            margin-bottom: 25px;
+
+        }
+
+        .wallet-box span {
+
+            font-size: 36px;
+            font-weight: bold;
+
+        }
+
+        .portfolio-item,
+        .news-item {
+
+            background: rgba(255,255,255,0.05);
+
+            padding: 16px;
+
+            border-radius: 14px;
+
+            margin-top: 14px;
+
+        }
+
+        .profit {
+
+            color: #22c55e;
+
+        }
+
+        .loss {
+
+            color: #ef4444;
+
+        }
+
+        @media(max-width: 900px) {
+
+            .navbar {
+
+                padding: 20px;
+
+            }
+
+            .hero-section h1 {
+
+                font-size: 40px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="background-shapes">
+
+    <div class="shape shape1"></div>
+    <div class="shape shape2"></div>
+    <div class="shape shape3"></div>
+
+</div>
+
+<div class="navbar">
+
+    <div class="logo">
+        TradeX
+    </div>
+
+    <div class="nav-links">
+
+        <a href="#"
+           onclick="showSection('home-section')">
+
+            Home
+
+        </a>
+
+        <a href="#"
+           onclick="showSection('market-section')">
+
+            Market
+
+        </a>
+
+        <a href="#"
+           onclick="showSection('portfolio-section')">
+
+            Portfolio
+
+        </a>
+
+        <a href="#"
+           onclick="showSection('news-section')">
+
+            News
+
+        </a>
+
+    </div>
+
+    <div id="clock"></div>
+
+</div>
+
+<div
+        class="auth-container"
+        id="authContainer">
+
+    <div class="auth-card">
+
+        <h1>Welcome Back</h1>
+
+        <p>
+
+            Sign in to continue to
+            <span>TradeX</span>
+
+        </p>
+
+        <div class="social-login">
+
+            <button>GitHub</button>
+            <button>Google</button>
+
+        </div>
+
+        <div class="divider">
+            OR
+        </div>
+
+        <input
+                type="text"
+                id="username"
+                placeholder="Enter Username"
+        >
+
+        <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+        >
+
+        <button
+                class="signin-btn"
+                onclick="login()">
+
+            SIGN IN
+
+        </button>
+
+    </div>
+
+</div>
+
+<div
+        class="dashboard"
+        id="dashboard">
+
+    <!-- HOME -->
+
+    <div
+            id="home-section"
+            class="page-section">
+
+        <div class="hero-section">
+
+            <h1>
+                📈 Smart Trading Dashboard
+            </h1>
+
+            <p>
+                Track stocks, manage
+                investments, and simulate
+                real-time trading.
+            </p>
+
+            <button
+                    class="hero-btn"
+                    onclick="showSection('market-section')">
+
+                Explore Market
+
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- MARKET -->
+
+    <div
+            id="market-section"
+            class="page-section"
+            style="display:none;">
+
+        <div class="card">
+
+            <h2>📊 Market Stocks</h2>
+
+            <input
+                    type="text"
+                    class="search-box"
+                    id="searchInput"
+                    placeholder="Search Stock..."
+                    onkeyup="searchStocks()"
+            >
+
+            <table>
+
+                <thead>
+
+                <tr>
+
+                    <th>Symbol</th>
+                    <th>Company</th>
+                    <th>Price</th>
+                    <th>Action</th>
+
+                </tr>
+
+                </thead>
+
+                <tbody id="stockTableBody">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+    <!-- PORTFOLIO -->
+
+    <div
+            id="portfolio-section"
+            class="page-section"
+            style="display:none;">
+
+        <div class="wallet-box">
+
+            <h2>Wallet Balance</h2>
+
+            ₹<span id="wallet">
+          50000
+        </span>
+
+        </div>
+
+        <div class="card">
+
+            <h2>💼 Portfolio</h2>
+
+            <div id="portfolioContainer">
+
+            </div>
+
+        </div>
+
+        <div class="card">
+
+            <h2>📈 Portfolio Analytics</h2>
+
+            <canvas id="portfolioChart">
+
+            </canvas>
+
+        </div>
+
+        <div class="card">
+
+            <h2>🧾 Transactions</h2>
+
+            <div id="transactionHistory">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- NEWS -->
+
+    <div
+            id="news-section"
+            class="page-section"
+            style="display:none;">
+
+        <div class="card">
+
+            <h2>📰 Market News</h2>
+
+            <div class="news-item">
+                📈 Reliance shares rise after earnings report.
+            </div>
+
+            <div class="news-item">
+                💹 Infosys expands AI partnerships globally.
+            </div>
+
+            <div class="news-item">
+                🏦 HDFC Bank sees increased investor activity.
+            </div>
+
+            <div class="news-item">
+                🚀 Tata Motors increases EV production.
+            </div>
+
+            <div class="news-item">
+                📊 Adani Ports sees strong momentum.
+            </div>
+
+            <div class="news-item">
+                💰 SBI reports quarterly profit growth.
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+    let walletBalance = 50000;
+
+    let portfolio = {};
+
+    let transactions = [];
+
+    const stocks = [
+
+        { symbol: 'TCS', company: 'TCS', price: 3500 },
+        { symbol: 'INFY', company: 'Infosys', price: 1450 },
+        { symbol: 'RELIANCE', company: 'Reliance', price: 2900 },
+        { symbol: 'WIPRO', company: 'Wipro', price: 520 },
+        { symbol: 'HDFCBANK', company: 'HDFC Bank', price: 1680 },
+        { symbol: 'ICICIBANK', company: 'ICICI Bank', price: 1100 },
+        { symbol: 'SBIN', company: 'SBI', price: 840 },
+        { symbol: 'TATAMOTORS', company: 'Tata Motors', price: 980 },
+        { symbol: 'MARUTI', company: 'Maruti Suzuki', price: 12500 },
+        { symbol: 'ADANIPORTS', company: 'Adani Ports', price: 1450 },
+        { symbol: 'ASIANPAINT', company: 'Asian Paints', price: 3020 },
+        { symbol: 'AXISBANK', company: 'Axis Bank', price: 1180 },
+        { symbol: 'BAJFINANCE', company: 'Bajaj Finance', price: 7200 },
+        { symbol: 'BHARTIARTL', company: 'Bharti Airtel', price: 1420 },
+        { symbol: 'HCLTECH', company: 'HCL Tech', price: 1650 },
+        { symbol: 'KOTAKBANK', company: 'Kotak Bank', price: 1780 },
+        { symbol: 'LT', company: 'L&T', price: 3650 },
+        { symbol: 'NESTLEIND', company: 'Nestle India', price: 25200 },
+        { symbol: 'SUNPHARMA', company: 'Sun Pharma', price: 1780 },
+        { symbol: 'ULTRACEMCO', company: 'UltraTech Cement', price: 11200 }
+
+    ];
+
+    function login() {
+
+        const username =
+            document.getElementById('username').value;
+
+        const password =
+            document.getElementById('password').value;
+
+        if(username === '' || password === '') {
+
+            alert('Please fill all fields');
+            return;
+
+        }
+
+        document.getElementById(
+            'authContainer'
+        ).style.display = 'none';
+
+        document.getElementById(
+            'dashboard'
+        ).style.display = 'block';
+
+        updateUI();
+
+    }
+
+    function showSection(sectionId) {
+
+        const sections =
+            document.querySelectorAll('.page-section');
+
+        sections.forEach(section => {
+
+            section.style.display = 'none';
+
+        });
+
+        document.getElementById(sectionId)
+            .style.display = 'block';
+
+    }
+
+    function renderStocks(stockList = stocks) {
+
+        const tableBody =
+            document.getElementById(
+                'stockTableBody'
+            );
+
+        tableBody.innerHTML = '';
+
+        stockList.forEach(stock => {
+
+            const row =
+                document.createElement('tr');
+
+            row.innerHTML = `
+
+          <td>${stock.symbol}</td>
+
+          <td>${stock.company}</td>
+
+          <td>
+            ₹${stock.price.toFixed(2)}
+          </td>
+
+          <td>
+
+            <button
+              class="buy-btn"
+              onclick="buyStock('${stock.symbol}')">
+
+              Buy
+
+            </button>
+
+            <button
+              class="sell-btn"
+              onclick="sellStock('${stock.symbol}')">
+
+              Sell
+
+            </button>
+
+          </td>
+
+        `;
+
+            tableBody.appendChild(row);
+
+        });
+
+    }
+
+    function buyStock(symbol) {
+
+        const stock =
+            stocks.find(s => s.symbol === symbol);
+
+        if(walletBalance >= stock.price) {
+
+            walletBalance -= stock.price;
+
+            if(portfolio[symbol]) {
+
+                portfolio[symbol].quantity++;
+
+            }
+
+            else {
+
+                portfolio[symbol] = {
+
+                    quantity: 1,
+                    buyPrice: stock.price
+
+                };
+
+            }
+
+            addTransaction(
+                `Bought ${symbol}`
+            );
+
+            updateUI();
+
+        }
+
+        else {
+
+            alert('Insufficient balance');
+
+        }
+
+    }
+
+    function sellStock(symbol) {
+
+        if(
+            portfolio[symbol] &&
+            portfolio[symbol].quantity > 0
+        ) {
+
+            const stock =
+                stocks.find(s => s.symbol === symbol);
+
+            portfolio[symbol].quantity--;
+
+            walletBalance += stock.price;
+
+            addTransaction(
+                `Sold ${symbol}`
+            );
+
+            if(portfolio[symbol].quantity === 0) {
+
+                delete portfolio[symbol];
+
+            }
+
+            updateUI();
+
+        }
+
+    }
+
+    function renderPortfolio() {
+
+        const container =
+            document.getElementById(
+                'portfolioContainer'
+            );
+
+        container.innerHTML = '';
+
+        for(const symbol in portfolio) {
+
+            const stock =
+                stocks.find(s => s.symbol === symbol);
+
+            const quantity =
+                portfolio[symbol].quantity;
+
+            const currentValue =
+                quantity * stock.price;
+
+            const profit =
+                currentValue -
+                (portfolio[symbol].buyPrice * quantity);
+
+            const div =
+                document.createElement('div');
+
+            div.classList.add(
+                'portfolio-item'
+            );
+
+            div.innerHTML = `
+
+          <h3>${symbol}</h3>
+
+          <p>
+            Quantity: ${quantity}
+          </p>
+
+          <p>
+            Value:
+            ₹${currentValue.toFixed(2)}
+          </p>
+
+          <p class="${
+                profit >= 0 ?
+                    'profit' :
+                    'loss'
+            }">
+
+            ${
+                profit >= 0 ?
+                    'Profit' :
+                    'Loss'
+            }
+
+            :
+            ₹${profit.toFixed(2)}
+
+          </p>
+
+        `;
+
+            container.appendChild(div);
+
+        }
+
+    }
+
+    function addTransaction(message) {
+
+        transactions.unshift(message);
+
+        renderTransactions();
+
+    }
+
+    function renderTransactions() {
+
+        const history =
+            document.getElementById(
+                'transactionHistory'
+            );
+
+        history.innerHTML = '';
+
+        transactions
+            .slice(0,10)
+            .forEach(transaction => {
+
+                const div =
+                    document.createElement('div');
+
+                div.classList.add(
+                    'portfolio-item'
+                );
+
+                div.innerText = transaction;
+
+                history.appendChild(div);
+
+            });
+
+    }
+
+    function updateUI() {
+
+        document.getElementById(
+            'wallet'
+        ).innerText =
+            walletBalance.toFixed(2);
+
+        renderPortfolio();
+
+        renderTransactions();
+
+        renderStocks();
+
+    }
+
+    function searchStocks() {
+
+        const search =
+            document.getElementById(
+                'searchInput'
+            ).value.toUpperCase();
+
+        const filtered =
+            stocks.filter(stock =>
+                stock.symbol.includes(search)
+            );
+
+        renderStocks(filtered);
+
+    }
+
+    function updateClock() {
+
+        document.getElementById(
+            'clock'
+        ).innerText =
+            new Date().toLocaleTimeString();
+
+    }
+
+    setInterval(updateClock, 1000);
+
+    renderStocks();
+
+    const ctx =
+        document.getElementById(
+            'portfolioChart'
+        );
+
+    new Chart(ctx, {
+
+        type: 'line',
+
+        data: {
+
+            labels: [
+
+                'Mon',
+                'Tue',
+                'Wed',
+                'Thu',
+                'Fri'
+
+            ],
+
+            datasets: [{
+
+                label: 'Portfolio Growth',
+
+                data: [
+
+                    1200,
+                    2400,
+                    1800,
+                    3500,
+                    4800
+
+                ],
+
+                borderWidth: 3
+
+            }]
+
+        }
+
+    });
+
+</script>
+
+</body>
+</html>

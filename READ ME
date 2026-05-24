@@ -1,0 +1,131 @@
+# 📈 TradeX - Stock Trading Platform
+
+TradeX is a modern stock trading simulation platform built using HTML, CSS, JavaScript, and Chart.js.
+
+This project simulates a real-time stock trading environment where users can:
+
+- View live market stocks
+- Buy and sell stocks
+- Track portfolio performance
+- Monitor wallet balance
+- View transaction history
+- Explore market news
+- Analyze portfolio growth with charts
+
+---
+
+# 🚀 Features
+
+## 🔐 Authentication UI
+- Modern glassmorphism login page
+- Interactive UI design
+- Responsive layout
+
+## 📊 Market Dashboard
+- Stock market table
+- Search functionality
+- Buy/Sell operations
+- Multiple stock listings
+
+## 💼 Portfolio Management
+- Portfolio tracking
+- Profit/Loss calculation
+- Wallet balance management
+- Transaction history
+
+## 📈 Analytics
+- Portfolio growth chart using Chart.js
+- Performance visualization
+
+## 📰 News Section
+- Market news updates
+- Interactive dashboard navigation
+
+## 🎨 UI Features
+- Animated transitions
+- Responsive design
+- Modern dashboard interface
+- Dynamic navigation tabs
+
+---
+
+# 🛠️ Technologies Used
+
+- HTML5
+- CSS3
+- JavaScript
+- Chart.js
+
+---
+
+# 📂 Project Structure
+
+```bash
+stock-trading-platform/
+│
+├── index.html
+├── README.md
+```
+
+---
+
+# ▶️ How To Run
+
+## Option 1 — Run Locally
+
+1. Download project
+2. Open folder
+3. Open `index.html` in browser
+
+OR
+
+Use VS Code Live Server extension.
+
+---
+
+# 🌐 Live Demo
+
+Add your Netlify link here after deployment:
+
+```bash
+https://your-project-name.netlify.app
+```
+
+---
+
+# 🔗 GitHub Repository
+
+Add your GitHub repository link here:
+
+```bash
+https://github.com/yourusername/stock-trading-platform
+```
+
+---
+
+# 📸 Screenshots
+
+You can add screenshots here later.
+
+---
+
+# 📌 Future Improvements
+
+- Real-time stock API integration
+- User authentication backend
+- Database storage
+- Dark/Light theme toggle
+- Advanced portfolio analytics
+- AI-based stock prediction
+
+---
+
+# 👨‍💻 Author
+
+Manideep Bommapala
+
+---
+
+# 📄 License
+
+This project is developed for educational and internship purposes.
